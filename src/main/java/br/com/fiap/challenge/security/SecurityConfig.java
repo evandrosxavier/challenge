@@ -41,8 +41,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/api/v1/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/usuarios/{id}")
-                        .hasAnyRole("CLIENTE", "DONO_RESTAURANTE")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/usuarios/{id}").permitAll()
+//                        .hasAnyRole("CLIENTE", "DONO_RESTAURANTE")
                         .anyRequest().permitAll()
                 )
 

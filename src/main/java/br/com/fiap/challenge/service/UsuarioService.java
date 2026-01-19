@@ -44,12 +44,11 @@ public class UsuarioService {
         return this.usuarioRepository.findAll().stream().map(usuarioMapper::toResponseDTO).toList();
     }
 
-
     public List<UsuarioResponseDTO> findByNome(String nome) {
         return this.usuarioRepository.findByNomeContainingIgnoreCase(nome).stream().map(usuarioMapper::toResponseDTO).toList();
     }
 
-    public void save(UsuarioCreateRequestDTO usuarioCreateRequestDTO) {
+    public UsuarioResponseDTO save(UsuarioCreateRequestDTO usuarioCreateRequestDTO) {
         Optional<Usuario> usuarioExiste = this.usuarioRepository.findByEmailIgnoreCase(usuarioCreateRequestDTO.email());
         if (usuarioExiste.isPresent()) {
             throw new EmailExistsException("E-mail " + usuarioCreateRequestDTO.email() +  " já cadastrado no sistema.");
@@ -59,7 +58,7 @@ public class UsuarioService {
         usuario.setSenha(passwordEncoder.encode(usuarioCreateRequestDTO.senha()));
         usuario.setDataDaUltimaAlteracao(LocalDateTime.now());
 
-        this.usuarioRepository.save(usuario);
+        return usuarioMapper.toResponseDTO(this.usuarioRepository.save(usuario));
     }
 
     public UsuarioResponseDTO update(UsuarioUpdateRequestDTO usuarioUpdateRequestDTO, Long id) {
