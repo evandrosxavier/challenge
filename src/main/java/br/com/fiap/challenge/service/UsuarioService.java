@@ -46,13 +46,13 @@ public class UsuarioService {
 
 
     public List<UsuarioResponseDTO> findByNome(String nome) {
-        return this.usuarioRepository.findAll().stream().map(usuarioMapper::toResponseDTO).toList();
+        return this.usuarioRepository.findByNomeContainingIgnoreCase(nome).stream().map(usuarioMapper::toResponseDTO).toList();
     }
 
     public void save(UsuarioCreateRequestDTO usuarioCreateRequestDTO) {
         Optional<Usuario> usuarioExiste = this.usuarioRepository.findByEmailIgnoreCase(usuarioCreateRequestDTO.email());
         if (usuarioExiste.isPresent()) {
-            throw new EmailExistsException("E-mail " + usuarioCreateRequestDTO.email() +  "já cadastrado no sistema.");
+            throw new EmailExistsException("E-mail " + usuarioCreateRequestDTO.email() +  " já cadastrado no sistema.");
         }
 
         Usuario usuario = usuarioMapper.toEntity(usuarioCreateRequestDTO);
