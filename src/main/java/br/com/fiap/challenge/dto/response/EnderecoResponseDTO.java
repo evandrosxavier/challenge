@@ -13,6 +13,9 @@ public record EnderecoResponseDTO(
         @Schema(description = "Número do endereço.", example = "1500")
         String numero,
 
+        @Schema(description = "Bairro do endereço).", example = "Bela Vista")
+        String bairro,
+
         @Schema(description = "Complemento do endereço (apartamento, bloco, etc).", example = "Andar 10, Cj 101")
         String complemento,
 

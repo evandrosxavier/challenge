@@ -5,6 +5,7 @@ import br.com.fiap.challenge.dto.request.UsuarioUpdateRequestDTO;
 import br.com.fiap.challenge.dto.request.UsuarioUpdateSenhaDTO;
 import br.com.fiap.challenge.dto.response.UsuarioResponseDTO;
 import br.com.fiap.challenge.exception.EmailExistsException;
+import br.com.fiap.challenge.exception.LoginExistsException;
 import br.com.fiap.challenge.exception.ResourceNotFoundException;
 import br.com.fiap.challenge.mapper.EnderecoMapper;
 import br.com.fiap.challenge.mapper.UsuarioMapper;
@@ -13,6 +14,7 @@ import br.com.fiap.challenge.model.Usuario;
 import br.com.fiap.challenge.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public class UsuarioService {
     private EnderecoMapper enderecoMapper;
     private PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper, EnderecoMapper enderecoMapper,  PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper, EnderecoMapper enderecoMapper, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
         this.enderecoMapper = enderecoMapper;
@@ -49,10 +51,15 @@ public class UsuarioService {
     }
 
     public UsuarioResponseDTO save(UsuarioCreateRequestDTO usuarioCreateRequestDTO) {
-        Optional<Usuario> usuarioExiste = this.usuarioRepository.findByEmailIgnoreCase(usuarioCreateRequestDTO.email());
-        if (usuarioExiste.isPresent()) {
-            throw new EmailExistsException("E-mail " + usuarioCreateRequestDTO.email() +  " já cadastrado no sistema.");
-        }
+
+        this.usuarioRepository.findByEmailIgnoreCase(usuarioCreateRequestDTO.email())
+                .ifPresent(u -> {
+                    throw new EmailExistsException("E-mail " + usuarioCreateRequestDTO.email() + " já cadastrado no sistema.");});
+
+        this.usuarioRepository.findByLoginIgnoreCase(usuarioCreateRequestDTO.login())
+                .ifPresent(u -> {
+                    throw new LoginExistsException("Login " + usuarioCreateRequestDTO.login() + " já está em uso.");
+                });
 
         Usuario usuario = usuarioMapper.toEntity(usuarioCreateRequestDTO);
         usuario.setSenha(passwordEncoder.encode(usuarioCreateRequestDTO.senha()));
@@ -63,7 +70,7 @@ public class UsuarioService {
 
     public UsuarioResponseDTO update(UsuarioUpdateRequestDTO usuarioUpdateRequestDTO, Long id) {
 
-        Usuario usuario = this.usuarioRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Usuário não encontrado com ID " + id + " ."));
+        Usuario usuario = this.usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com ID " + id + " ."));
 
         usuarioRepository.findByEmailIgnoreCase(usuarioUpdateRequestDTO.email())
                 .filter(u -> !u.getId().equals(id))
@@ -73,7 +80,7 @@ public class UsuarioService {
                     );
                 });
 
-        usuarioMapper.updateEntityFromDTO(usuarioUpdateRequestDTO,usuario);
+        usuarioMapper.updateEntityFromDTO(usuarioUpdateRequestDTO, usuario);
 
         usuario.getEnderecos().clear();
 
@@ -100,8 +107,8 @@ public class UsuarioService {
     }
 
     public void updateSenha(UsuarioUpdateSenhaDTO usuarioUpdateSenhaDTO, Long id) {
-        Usuario usuario = this.usuarioRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Usuário não encontrado com ID " + id + " ."));
-        if (!passwordEncoder.matches(usuarioUpdateSenhaDTO.senhaAtual(), usuario.getSenha())){
+        Usuario usuario = this.usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com ID " + id + " ."));
+        if (!passwordEncoder.matches(usuarioUpdateSenhaDTO.senhaAtual(), usuario.getSenha())) {
             throw new IllegalArgumentException("Senha atual inválida. Tente novamente!");
         }
         usuario.setSenha(passwordEncoder.encode(usuarioUpdateSenhaDTO.novaSenha()));

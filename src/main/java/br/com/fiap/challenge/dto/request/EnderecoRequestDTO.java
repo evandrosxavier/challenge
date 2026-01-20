@@ -18,6 +18,9 @@ public record EnderecoRequestDTO(
         @Schema(description = "Complemento do endereço (apartamento, bloco, etc).", example = "Apto 101")
         String complemento,
 
+        @Schema(description = "Bairro do endereço).", example = "Bela Vista")
+        String bairro,
+
         @Schema(description = "CEP do endereço, somente números.", example = "01310100")
         @NotBlank(message = "O CEP não pode estar em branco.")
         @Pattern(regexp = "\\d{8}", message = "O CEP deve conter 8 dígitos numéricos.")
