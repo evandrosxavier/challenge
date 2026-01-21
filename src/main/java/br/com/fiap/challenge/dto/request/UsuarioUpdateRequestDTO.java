@@ -1,6 +1,6 @@
-package br.com.fiap.challenge.dto.request; // Ajuste o pacote se necessário
+package br.com.fiap.challenge.dto.request;
 
-import br.com.fiap.challenge.model.TipoUsuario; // Ajuste o pacote se necessário
+import br.com.fiap.challenge.model.TipoUsuario;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -24,7 +24,7 @@ public record UsuarioUpdateRequestDTO(
         TipoUsuario tipoUsuario,
 
         @Schema(description = "Nova lista de endereços do usuário. Se fornecida, substituirá completamente a lista de endereços existente.")
-        @Valid // Se a lista for fornecida, seus itens devem ser válidos.
+        @Valid
         List<EnderecoRequestDTO> enderecos
 ) {
 }

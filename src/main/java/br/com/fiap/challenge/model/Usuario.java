@@ -47,28 +47,7 @@ public class Usuario {
 
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // <-- ADICIONE AQUI
+    @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
 
-//
-//    public Usuario(UsuarioCreateRequestDTO usuarioCreateRequestDTO) {
-//        this.nome = usuarioCreateRequestDTO.nome();
-//        this.email = usuarioCreateRequestDTO.email();
-//        this.login = usuarioCreateRequestDTO.login();
-//        this.senha = usuarioCreateRequestDTO.senha();
-//        this.tipoUsuario = usuarioCreateRequestDTO.tipoUsuario();
-//        this.dataDaUltimaAlteracao = LocalDateTime.now();
-//
-//
-//        if (usuarioCreateRequestDTO.enderecos() != null) {
-//            for (EnderecoRequestDTO enderecoDto : usuarioCreateRequestDTO.enderecos()) {
-//                Endereco endereco = new Endereco(enderecoDto);
-//                endereco.setUsuario(this);
-//                enderecos.add(endereco);
-//            }
-//        }this.setEnderecos(enderecos);
-//    }
-//
-//    }
-//
 }

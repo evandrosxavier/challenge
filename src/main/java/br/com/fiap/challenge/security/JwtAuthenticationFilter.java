@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String login = jwtService.getLogin(token);
         System.out.println("JWT recebido: " + token);
 
-        String tipoUsuario = jwtService.getTipo(token); // CLIENTE
+        String tipoUsuario = jwtService.getTipo(token);
 
         List<GrantedAuthority> authorities =
                 List.of(new SimpleGrantedAuthority("ROLE_" + tipoUsuario));

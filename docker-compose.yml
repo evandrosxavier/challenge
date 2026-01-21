@@ -28,7 +28,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: develop  # ← ATIVA O PROFILE
+      SPRING_PROFILES_ACTIVE: develop
     depends_on:
       postgres-db:
         condition: service_healthy

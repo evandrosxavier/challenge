@@ -24,7 +24,6 @@ public class ControllerExceptionHandler {
      */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ProblemDetail> handlerResourceNotFoundException(ResourceNotFoundException e) {
-        // Usando a mensagem exata da sua exceção no campo "detail"
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Recurso Não Encontrado");
         problemDetail.setType(URI.create("https://api.mydelivery.com/errors/not-found" ));
@@ -34,7 +33,6 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(EmailExistsException.class)
     public ResponseEntity<ProblemDetail> handlerEmailExists(EmailExistsException e) {
-        // Usando a mensagem exata da sua exceção no campo "detail"
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
         problemDetail.setTitle("O email informado já está cadastrado.");
         problemDetail.setType(URI.create("https://api.mydelivery.com/errors/data-conflict" ));
