@@ -11,16 +11,12 @@ O sistema implementa uma API RESTful completa, utilizando o ecossistema Spring B
 
 A aplicação adota a Arquitetura em Camadas (Layered Architecture), um padrão que promove a separação de preocupações e facilita a manutenção e evolução do código.
 
-Camada
-Responsabilidade
-Controller
-Camada de apresentação que expõe os endpoints REST e gerencia o contrato da API via DTOs.
-Service
-Camada de lógica de negócio, onde residem as validações e orquestração de processos.
-Repository
-Camada de persistência que abstrai o acesso ao banco de dados utilizando Spring Data JPA.
-Model
-Representação das entidades de domínio e mapeamento objeto-relacional (ORM).
+| Camada | Responsabilidade |
+| --- | --- |
+| **Controller** | Camada de apresentação que expõe os endpoints REST e gerencia o contrato da API via DTOs. |
+| **Service** | Camada de lógica de negócio, onde residem as validações e orquestração de processos. |
+| **Repository** | Camada de persistência que abstrai o acesso ao banco de dados utilizando Spring Data JPA. |
+| **Model** | Representação das entidades de domínio e mapeamento objeto-relacional (ORM). |
 
 
 
@@ -34,20 +30,15 @@ A infraestrutura é composta por um banco de dados PostgreSQL 16, orquestrado at
 
 O projeto foi desenvolvido sob o rigor de padrões de qualidade da indústria, garantindo um código limpo e profissional.
 
-•
-Spring Boot 3 & Java 21: Utilização das versões mais recentes para aproveitar melhorias de performance e sintaxe.
+•Spring Boot 3 & Java 21: Utilização das versões mais recentes para aproveitar melhorias de performance e sintaxe.
 
-•
-SOLID & DRY: Aplicação dos princípios de design para um código coeso e sem repetições desnecessárias.
+•SOLID & DRY: Aplicação dos princípios de design para um código coeso e sem repetições desnecessárias.
 
-•
-Problem Detail (RFC 7807): Padronização das respostas de erro, fornecendo mensagens claras e estruturadas para os consumidores da API.
+•Problem Detail (RFC 7807): Padronização das respostas de erro, fornecendo mensagens claras e estruturadas para os consumidores da API.
 
-•
-Bean Validation: Validação rigorosa dos dados de entrada diretamente nos DTOs.
+•Bean Validation: Validação rigorosa dos dados de entrada diretamente nos DTOs.
 
-•
-OpenAPI 3 (Swagger): Documentação interativa e autodocumentada para facilitar o consumo da API.
+•OpenAPI 3 (Swagger): Documentação interativa e autodocumentada para facilitar o consumo da API.
 
 
 
@@ -58,41 +49,28 @@ A aplicação está totalmente containerizada, o que elimina a necessidade de in
 
 Pré-requisitos
 
-•
-Docker Desktop instalado e em execução.
+•Docker Desktop instalado e em execução.
 
-•
-Git para clonagem do repositório.
+•Git para clonagem do repositório.
 
 Passo a Passo
 
-1.
-Clonar o Repositório:
+1.Clonar o Repositório:
 
 Bash
-
-
 git clone https://github.com/evandrosxavier/challenge
 cd challenge
 
 
-
-
-2.
-Executar com Docker Compose:
+2.Executar com Docker Compose:
 
 Bash
-
-
 docker-compose up --build
-
 
 O comando --build garante que a imagem da aplicação seja construída com as alterações mais recentes.
 
 
-
-3.
-Acessar a Documentação:
+3.Acessar a Documentação:
 Após a inicialização, a documentação interativa estará disponível em:
 http://localhost:8080/swagger-ui.html
 
@@ -103,31 +81,24 @@ http://localhost:8080/swagger-ui.html
 
 A API está organizada para oferecer uma experiência intuitiva e padronizada.
 
+
 Autenticação
 
-•
-POST /auth/login: Autentica o usuário e retorna um token JWT.
+•POST /auth/login: Autentica o usuário e retorna um token JWT.
 
 Gerenciamento de Usuários (/api/v1/usuarios)
 
-•
-POST /: Criação de novos usuários com endereços vinculados.
+•POST /: Criação de novos usuários com endereços vinculados.
 
-•
-GET /: Listagem geral ou filtrada por nome.
+•GET /: Listagem geral ou filtrada por nome.
 
-•
-GET /{id}: Busca detalhada por identificador único.
+•GET /{id}: Busca detalhada por identificador único.
 
-•
-PUT /{id}: Atualização de dados cadastrais.
+•PUT /{id}: Atualização de dados cadastrais.
 
-•
-PATCH /{id}/senha: Atualização segura de credenciais.
+•PATCH /{id}/senha: Atualização segura de credenciais.
 
-•
-DELETE /{id}: Remoção de registros do sistema.
-
+•DELETE /{id}: Remoção de registros do sistema.
 
 
 
@@ -136,6 +107,8 @@ DELETE /{id}: Remoção de registros do sistema.
 Para validar o funcionamento da API, você pode utilizar a Collection do Postman oficial do projeto:
 
 🔗 Acessar Collection Postman
+
+https://www.postman.com/mar8c8os/portiflio-fiap-postech/collection/11931430-29dba819-9187-4b2a-a8d7-ed09883406b3/?action=share&creator=11931430
 
 Além disso, o Swagger UI local permite realizar testes manuais diretamente pelo navegador, validando cenários de sucesso e as respostas padronizadas de erro.
 
@@ -146,9 +119,7 @@ Além disso, o Swagger UI local permite realizar testes manuais diretamente pelo
 
 Evandro Santos Xavier
 
-•
-GitHub: evandrosxavier
+•GitHub: evandrosxavier
 
-•
-Projeto: Challenge FIAP - MyDelivery API
+•Projeto: Challenge FIAP - MyDelivery API
 
