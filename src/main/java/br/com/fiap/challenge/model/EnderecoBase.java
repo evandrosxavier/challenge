@@ -1,7 +1,5 @@
 package br.com.fiap.challenge.model;
 
-import  br.com.fiap.challenge.dto.request.EnderecoRequestDTO;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,11 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = "usuario")
+@ToString
 
-@Entity
-@Table(name ="tb_enderecos")
-public class Endereco {
+@MappedSuperclass
+public abstract class EnderecoBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +38,5 @@ public class Endereco {
     @Column(nullable = false, length = 10)
     private String cep;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonBackReference
-    private Usuario usuario;
-
 }
+

@@ -2,10 +2,12 @@ package br.com.fiap.challenge.service;
 
 import br.com.fiap.challenge.dto.request.LoginRequestDTO;
 import br.com.fiap.challenge.dto.response.TokenResponseDTO;
-import br.com.fiap.challenge.exception.ResourceNotFoundException;
+import br.com.fiap.challenge.exception.BusinessException;
+import br.com.fiap.challenge.model.ErrorCode;
 import br.com.fiap.challenge.model.Usuario;
 import br.com.fiap.challenge.repository.UsuarioRepository;
 import br.com.fiap.challenge.security.JwtService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class AuthService {
         Usuario usuario = usuarioRepository
                 .findByLoginIgnoreCase(dto.login())
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Login ou senha inválidos")
+                        new BusinessException(ErrorCode.INVALID_LOGIN_PASSWORD, HttpStatus.BAD_REQUEST)
                 );
 
         boolean senhaValida = passwordEncoder.matches(
@@ -40,7 +42,7 @@ public class AuthService {
         );
 
         if (!senhaValida) {
-            throw new ResourceNotFoundException("Login ou senha inválidos");
+            throw new BusinessException(ErrorCode.INVALID_LOGIN_PASSWORD, HttpStatus.BAD_REQUEST);
         }
 
         String token = jwtService.gerarToken(usuario);

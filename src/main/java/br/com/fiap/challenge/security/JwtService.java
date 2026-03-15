@@ -27,7 +27,7 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(usuario.getLogin())
                 .claim("id", usuario.getId())
-                .claim("tipo", usuario.getTipoUsuario().name())
+                .claim("tipo", usuario.getTipoUsuario().getDescricao())
                 .setIssuedAt(agora)
                 .setExpiration(expiracao)
                 .signWith(SECRET_KEY, SignatureAlgorithm.HS256)

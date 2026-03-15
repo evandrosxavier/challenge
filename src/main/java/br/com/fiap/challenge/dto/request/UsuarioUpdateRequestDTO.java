@@ -1,10 +1,9 @@
 package br.com.fiap.challenge.dto.request;
 
-import br.com.fiap.challenge.model.TipoUsuario;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -20,8 +19,10 @@ public record UsuarioUpdateRequestDTO(
         @Schema(description = "Novo login de acesso do usuário. Se não for fornecido, o login atual será mantido.", example = "joao.santos")
         String login,
 
-        @Schema(description = "Novo tipo do usuário (ex: CLIENTE, ENTREGADOR). Se não for fornecido, o tipo atual será mantido.", example = "CLIENTE")
-        TipoUsuario tipoUsuario,
+        @Schema(description = "Id do tipo de usuário.", example = "1")
+        @NotNull(message = "O tipo do usuário não pode ser nulo.")
+        @Valid
+        Long tipoUsuario,
 
         @Schema(description = "Nova lista de endereços do usuário. Se fornecida, substituirá completamente a lista de endereços existente.")
         @Valid

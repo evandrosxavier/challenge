@@ -1,0 +1,25 @@
+package br.com.fiap.challenge.model;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false, of = "id")
+@ToString(exclude = "usuario")
+
+@Entity
+@Table(name = "tb_enderecos_usuario")
+public class EnderecoUsuario extends EnderecoBase {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonBackReference
+    private Usuario usuario;
+
+}
+
+

@@ -1,10 +1,10 @@
 package br.com.fiap.challenge.controller;
 
-import br.com.fiap.challenge.dto.request.UsuarioCreateRequestDTO;
-import br.com.fiap.challenge.dto.request.UsuarioUpdateRequestDTO;
-import br.com.fiap.challenge.dto.request.UsuarioUpdateSenhaDTO;
-import br.com.fiap.challenge.dto.response.UsuarioResponseDTO;
-import br.com.fiap.challenge.service.UsuarioService;
+
+import br.com.fiap.challenge.dto.request.ItemCardapioRequest;
+import br.com.fiap.challenge.dto.request.ItemCardapioUpdateRequest;
+import br.com.fiap.challenge.dto.response.ItemCardapioResponse;
+import br.com.fiap.challenge.service.ItemCardapioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,62 +21,63 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/usuarios" )
-@Tag(name = "Usuários", description = "API responsável pela gestão de usuários.")
-public class UsuarioController {
+@RequestMapping(value = "/api/v1/item-cardapio")
+@Tag(name = "Item de Cardápio", description = "API responsável pela gestão dos itens do cardápio dos restaurantes")
+public class ItemCardapioController {
 
-    private final UsuarioService usuarioService;
+    private final ItemCardapioService itemCardapioService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public ItemCardapioController(ItemCardapioService itemCardapioService) {
+        this.itemCardapioService = itemCardapioService;
     }
 
-    @Operation(summary = "Buscar usuário por ID", description = "Retorna os detalhes de um usuário específico com base em seu ID.")
+    @Operation(summary = "Buscar item de cardápio por ID", description = "Retorna os dados completos de um item de cardápio")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDTO.class))),
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ItemCardapioResponse.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
     })
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(this.usuarioService.findById(id));
+    public ResponseEntity<ItemCardapioResponse> buscarPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.itemCardapioService.findById(id));
     }
 
-    @Operation(summary = "Listar usuários", description = "Retorna uma lista de todos os usuários ou filtra pelo nome.")
+    @Operation(summary = "Listar todos os itens de cardápio", description = "Retorna a lista com todos os itens de cardápio cadastrados")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ItemCardapioResponse.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
     })
     @GetMapping
-    public ResponseEntity<List<UsuarioResponseDTO>> find(@RequestParam(value = "nome", required = false) String nome) {
-        List<UsuarioResponseDTO> listDTO = (nome != null && !nome.isBlank()) ?
-                this.usuarioService.findByNome(nome) :
-                this.usuarioService.findAll();
-        return ResponseEntity.ok(listDTO);
+    public ResponseEntity<List<ItemCardapioResponse>> buscarTodos() {
+        return ResponseEntity.ok(this.itemCardapioService.findAll());
     }
 
-    @Operation(summary = "Criar novo usuário", description = "Cria um novo registro de usuário no sistema.")
+    @Operation(summary = "Criar novo item de cardápio", description = "Cria um novo registro de item de cardápio no sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDTO.class))),
+            @ApiResponse(responseCode = "201", description = "Created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ItemCardapioResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
     })
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> save(@RequestBody @Valid UsuarioCreateRequestDTO usuarioCreateRequestDTO) {
-        UsuarioResponseDTO usuarioSalvo = this.usuarioService.save(usuarioCreateRequestDTO);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuarioSalvo.id()).toUri();
-        return ResponseEntity.created(location).body(usuarioSalvo);
+    public ResponseEntity<ItemCardapioResponse> cadastrar(@RequestBody @Valid ItemCardapioRequest itemCardapioRequest) {
+        ItemCardapioResponse itemSalvo = this.itemCardapioService.save(itemCardapioRequest);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(itemSalvo.id())
+                .toUri();
+        return ResponseEntity.created(location).body(itemSalvo);
     }
 
-    @Operation(summary = "Atualizar usuário", description = "Atualiza os dados de um usuário existente (exceto senha).")
+    @Operation(summary = "Atualizar item de cardápio", description = "Atualiza os dados de um item de cardápio existente")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDTO.class))),
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ItemCardapioResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
@@ -84,11 +85,11 @@ public class UsuarioController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> update(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateRequestDTO usuarioUpdateRequestDTO) {
-        return ResponseEntity.ok(this.usuarioService.update(usuarioUpdateRequestDTO, id));
+    public ResponseEntity<ItemCardapioResponse> atualizar(@PathVariable("id") Long id, @RequestBody @Valid ItemCardapioUpdateRequest itemCardapioUpdateRequest) {
+        return ResponseEntity.ok(this.itemCardapioService.update(id, itemCardapioUpdateRequest));
     }
 
-    @Operation(summary = "Excluir usuário", description = "Remove um usuário do sistema com base em seu ID.")
+    @Operation(summary = "Deletar item de cardápio", description = "Remove um item de cardápio do sistema com base em seu ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "No Content"),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
@@ -97,23 +98,9 @@ public class UsuarioController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        this.usuarioService.delete(id);
+    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+        this.itemCardapioService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Atualizar senha do usuário", description = "Permite que um usuário atualize sua própria senha.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "No Content"),
-            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
-            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
-            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
-            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class)))
-    })
-    @PatchMapping("/{id}/senha")
-    public ResponseEntity<Void> updateSenha(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateSenhaDTO usuarioUpdateSenhaDTO) {
-        this.usuarioService.updateSenha(usuarioUpdateSenhaDTO, id);
-        return ResponseEntity.noContent().build();
-    }
 }

@@ -1,7 +1,5 @@
 package br.com.fiap.challenge.model;
 
-import br.com.fiap.challenge.dto.request.EnderecoRequestDTO;
-import br.com.fiap.challenge.dto.request.UsuarioCreateRequestDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,13 +39,13 @@ public class Usuario {
     @Column(name = "data_ultima_alteracao", nullable = false)
     private LocalDateTime dataDaUltimaAlteracao;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
 
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Endereco> enderecos = new ArrayList<>();
+    private List<EnderecoUsuario> enderecos = new ArrayList<>();
 
 }

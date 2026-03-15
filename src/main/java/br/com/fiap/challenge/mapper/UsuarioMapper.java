@@ -11,15 +11,17 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(
         componentModel = "spring",
-        uses = EnderecoMapper.class
+        uses = {EnderecoMapper.class, TipoUsuarioMapper.class}
 )
 public interface UsuarioMapper {
 
+    @Mapping(target = "tipoUsuario", ignore = true)
     Usuario toEntity(UsuarioCreateRequestDTO usuarioCreateRequestDTO);
 
     UsuarioResponseDTO toResponseDTO(Usuario usuario);
 
     @Mapping(target = "enderecos", ignore = true)
+    @Mapping(target = "tipoUsuario", ignore = true)
     void updateEntityFromDTO(UsuarioUpdateRequestDTO usuarioUpdateRequestDTO, @MappingTarget Usuario usuario);
 
     @AfterMapping
@@ -30,3 +32,4 @@ public interface UsuarioMapper {
     }
 
 }
+

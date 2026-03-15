@@ -1,7 +1,5 @@
 package br.com.fiap.challenge.dto.request;
 
-import br.com.fiap.challenge.model.Endereco;
-import br.com.fiap.challenge.model.TipoUsuario;
 import java.util.List;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
@@ -30,9 +28,10 @@ public record UsuarioCreateRequestDTO(
         @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
         String senha,
 
-        @Schema(description = "Tipo do usuário (ex: CLIENTE, ENTREGADOR).", example = "CLIENTE")
+        @Schema(description = "Id do tipo de usuário.", example = "1")
         @NotNull(message = "O tipo do usuário não pode ser nulo.")
-        TipoUsuario tipoUsuario,
+        @Valid
+        Long tipoUsuario,
 
         @Schema(description = "Lista de endereços do usuário.")
         @NotNull(message = "A lista de endereços não pode ser nula.")
