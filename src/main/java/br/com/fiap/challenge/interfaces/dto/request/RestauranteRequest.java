@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 public record RestauranteRequest(
 
         @Schema(description = "Nome do restaurante.", example = "Pizzaria ABC", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -30,7 +32,7 @@ public record RestauranteRequest(
         @Schema(description = "Endereço do restaurante.", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotNull(message = "O endereço não pode ser nulo.")
         @Valid
-        EnderecoRequestDTO endereco
+        List<EnderecoRequestDTO> enderecos
 ) {
 }
 

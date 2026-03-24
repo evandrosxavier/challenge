@@ -6,6 +6,7 @@ import br.com.fiap.challenge.interfaces.dto.response.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestData {
 
@@ -75,7 +76,7 @@ public class TestData {
 
     public static UsuarioCreateRequestDTO createUsuarioRequest() {
         return new UsuarioCreateRequestDTO(
-            "Maria Santos", "maria@email.com", "maria.santos", "senha123", 1L, new ArrayList<>()
+            "Maria Santos", "maria@email.com", "maria.santos", "senha123", 1L, List.of(createEnderecoRequest())
         );
     }
 
@@ -100,20 +101,20 @@ public class TestData {
         restaurante.setNome("Pizzaria Bella");
         restaurante.setTipoCozinha("Italiana");
         restaurante.setHorarioFuncionamento("10:00-22:00");
-        restaurante.setEndereco(createEnderecoRestaurante());
+        restaurante.getEnderecos().add(createEnderecoRestaurante());
         restaurante.setDataCriacao(LocalDateTime.now());
         return restaurante;
     }
 
     public static RestauranteRequest createRestauranteRequest() {
         return new RestauranteRequest(
-            "Churrascaria X", "Brasileira", "11:00-23:00", 1L, null
+            "Churrascaria X", "Brasileira", "11:00-23:00", 1L, List.of(createEnderecoRequest())
         );
     }
 
     public static RestauranteUpdateRequest createRestauranteUpdate() {
         return new RestauranteUpdateRequest(
-            "Churrascaria X Updated", "Brasileira Premium", "11:00-23:30"
+            "Churrascaria X Updated", "Brasileira Premium", "11:00-23:30", 1L, List.of(createEnderecoRequest())
         );
     }
 

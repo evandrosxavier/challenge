@@ -4,6 +4,7 @@ import br.com.fiap.challenge.application.exception.BusinessException;
 import br.com.fiap.challenge.application.exception.ErrorCode;
 import br.com.fiap.challenge.application.port.RestauranteRepositoryPort;
 import br.com.fiap.challenge.application.port.UsuarioRepositoryPort;
+import br.com.fiap.challenge.domain.entities.EnderecoRestaurante;
 import br.com.fiap.challenge.domain.entities.Restaurante;
 import br.com.fiap.challenge.domain.entities.Usuario;
 import br.com.fiap.challenge.interfaces.dto.request.EnderecoRequestDTO;
@@ -22,6 +23,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +63,7 @@ class RestauranteServiceTest {
         restaurante = new Restaurante();
         restaurante.setId(1L);
         restaurante.setNome("Pizzaria Bella");
+        restaurante.setEnderecos(new ArrayList<>());
 
         restauranteResponse = mock(RestauranteResponse.class);
     }
@@ -136,7 +139,7 @@ class RestauranteServiceTest {
                 "Italiana",
                 "11:00-22:00",
                 1L,
-                mock(EnderecoRequestDTO.class)
+                List.of(mock(EnderecoRequestDTO.class))
             );
 
             when(restauranteMapper.toEntity(request)).thenReturn(restaurante);
@@ -161,7 +164,7 @@ class RestauranteServiceTest {
                 "Italiana",
                 "11:00-22:00",
                 1L,
-                mock(EnderecoRequestDTO.class)
+                List.of(mock(EnderecoRequestDTO.class))
             );
 
             when(restauranteRepository.findByNomeIgnoreCase("Pizzaria Bella"))
@@ -180,14 +183,23 @@ class RestauranteServiceTest {
         @Test
         @DisplayName("Deve atualizar restaurante com sucesso")
         void shouldUpdateRestauranteSuccessfully() {
+            EnderecoRequestDTO enderecoDTO = new EnderecoRequestDTO(
+                "Rua Nova", "100", "Apto 1", "Centro", "01000-000", "São Paulo", "SP"
+            );
             RestauranteUpdateRequest updateDTO = new RestauranteUpdateRequest(
                 "Pizzaria Bella Premium",
                 "Italiana Premium",
-                "10:00-23:00"
+                "10:00-23:00",
+                1L,
+                List.of(enderecoDTO)
             );
+
+            EnderecoRestaurante enderecoRestaurante = new EnderecoRestaurante();
+            enderecoRestaurante.setLogradouro("Rua Nova");
 
             when(restauranteRepository.findById(1L)).thenReturn(Optional.of(restaurante));
             when(restauranteRepository.findByNomeIgnoreCase("Pizzaria Bella Premium")).thenReturn(Optional.empty());
+            when(enderecoMapper.toEnderecoRestaurante(any(EnderecoRequestDTO.class))).thenReturn(enderecoRestaurante);
             when(restauranteRepository.save(any(Restaurante.class))).thenReturn(restaurante);
             when(restauranteMapper.toResponseDTO(restaurante)).thenReturn(restauranteResponse);
 
@@ -203,10 +215,15 @@ class RestauranteServiceTest {
         @Test
         @DisplayName("Deve lançar exceção quando restaurante não encontrado na atualização")
         void shouldThrowExceptionWhenRestauranteNotFoundOnUpdate() {
+            EnderecoRequestDTO enderecoDTO = new EnderecoRequestDTO(
+                "Rua Nova", "100", "Apto 1", "Centro", "01000-000", "São Paulo", "SP"
+            );
             RestauranteUpdateRequest updateDTO = new RestauranteUpdateRequest(
                 "Pizzaria Bella Premium",
                 "Italiana Premium",
-                "10:00-23:00"
+                "10:00-23:00",
+                1L,
+                List.of(enderecoDTO)
             );
 
             when(restauranteRepository.findById(999L)).thenReturn(Optional.empty());
@@ -222,10 +239,15 @@ class RestauranteServiceTest {
             restauranteExistente.setId(2L);
             restauranteExistente.setNome("Churrascaria X");
 
+            EnderecoRequestDTO enderecoDTO = new EnderecoRequestDTO(
+                "Rua Nova", "100", "Apto 1", "Centro", "01000-000", "São Paulo", "SP"
+            );
             RestauranteUpdateRequest updateDTO = new RestauranteUpdateRequest(
                 "Churrascaria X",
                 "Brasileira",
-                "12:00-23:00"
+                "12:00-23:00",
+                1L,
+                List.of(enderecoDTO)
             );
 
             when(restauranteRepository.findById(1L)).thenReturn(Optional.of(restaurante));
@@ -241,15 +263,24 @@ class RestauranteServiceTest {
         @Test
         @DisplayName("Deve permitir atualizar com nome diferente")
         void shouldAllowUpdateWithDifferentName() {
+            EnderecoRequestDTO enderecoDTO = new EnderecoRequestDTO(
+                "Rua Nova", "100", "Apto 1", "Centro", "01000-000", "São Paulo", "SP"
+            );
             RestauranteUpdateRequest updateDTO = new RestauranteUpdateRequest(
                 "Pizzaria Nova",
                 "Italiana",
-                "11:00-22:00"
+                "11:00-22:00",
+                1L,
+                List.of(enderecoDTO)
             );
+
+            EnderecoRestaurante enderecoRestaurante = new EnderecoRestaurante();
+            enderecoRestaurante.setLogradouro("Rua Nova");
 
             when(restauranteRepository.findById(1L)).thenReturn(Optional.of(restaurante));
             when(restauranteRepository.findByNomeIgnoreCase("Pizzaria Nova"))
                 .thenReturn(Optional.empty());
+            when(enderecoMapper.toEnderecoRestaurante(any(EnderecoRequestDTO.class))).thenReturn(enderecoRestaurante);
             when(restauranteRepository.save(any(Restaurante.class))).thenReturn(restaurante);
             when(restauranteMapper.toResponseDTO(restaurante)).thenReturn(restauranteResponse);
 

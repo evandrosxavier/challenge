@@ -15,7 +15,8 @@ import lombok.*;
 @Table(name = "tb_enderecos_restaurante")
 public class EnderecoRestaurante extends EnderecoBase {
 
-    @OneToOne(mappedBy = "endereco", fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_restaurante", nullable = false)
     @JsonBackReference
     private Restaurante restaurante;
 

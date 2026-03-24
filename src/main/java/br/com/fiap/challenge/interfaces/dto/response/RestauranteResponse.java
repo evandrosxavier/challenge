@@ -2,6 +2,7 @@ package br.com.fiap.challenge.interfaces.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record RestauranteResponse(
 
@@ -21,7 +22,7 @@ public record RestauranteResponse(
         DonoRestauranteResponse donoRestaurante,
 
         @Schema(description = "Endereço do restaurante.")
-        EnderecoResponseDTO endereco,
+        List<EnderecoResponseDTO> enderecos,
 
         @Schema(description = "Data de criação.", example = "2026-03-15T10:30:00")
         LocalDateTime dataCriacao

@@ -19,7 +19,7 @@ public interface RestauranteMapper {
     @Mapping(target = "donoRestaurante", ignore = true)
     @Mapping(target = "itensCardapio", ignore = true)
     @Mapping(target = "dataCriacao", ignore = true)
-    @Mapping(source = "endereco", target = "endereco")
+    @Mapping(source = "enderecos", target = "enderecos")
     Restaurante toEntity(RestauranteRequest restauranteRequest);
 
     @Mapping(source = "donoRestaurante.id", target = "donoRestaurante.id")
@@ -31,13 +31,13 @@ public interface RestauranteMapper {
     @Mapping(target = "donoRestaurante", ignore = true)
     @Mapping(target = "itensCardapio", ignore = true)
     @Mapping(target = "dataCriacao", ignore = true)
-    @Mapping(target = "endereco", ignore = true)
+    @Mapping(target = "enderecos", ignore = true)
     void updateEntityFromDTO(RestauranteUpdateRequest restauranteUpdateRequest, @MappingTarget Restaurante restaurante);
 
     @AfterMapping
-    default void linkEndereco(@MappingTarget Restaurante restaurante) {
-        if (restaurante.getEndereco() != null) {
-            restaurante.getEndereco().setRestaurante(restaurante);
+    default void linkEnderecos(@MappingTarget Restaurante restaurante) {
+        if (restaurante.getEnderecos() != null) {
+            restaurante.getEnderecos().forEach(endereco -> endereco.setRestaurante(restaurante));
         }
     }
 

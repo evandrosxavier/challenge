@@ -53,8 +53,8 @@ public class RestauranteService {
     @Transactional
     public RestauranteResponse save(RestauranteRequest restauranteRequest) {
         if (this.restauranteRepository.findByNomeIgnoreCase(restauranteRequest.nome()).isPresent()) {
-                    throw new BusinessException(ErrorCode.RESTAURANT_ALREADY_EXISTS, HttpStatus.CONFLICT);
-        };
+            throw new BusinessException(ErrorCode.RESTAURANT_ALREADY_EXISTS, HttpStatus.CONFLICT);
+        }
 
         Usuario donoRestaurante = this.usuarioRepository.findById(restauranteRequest.idDonoRestaurante())
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND));
@@ -63,9 +63,6 @@ public class RestauranteService {
 
         restaurante.setDonoRestaurante(donoRestaurante);
 
-        EnderecoRestaurante endereco = enderecoMapper.toEnderecoRestaurante(restauranteRequest.endereco());
-        endereco.setRestaurante(restaurante);
-        restaurante.setEndereco(endereco);
         restaurante.setDataCriacao(LocalDateTime.now());
 
         Restaurante restauranteSalvo = this.restauranteRepository.save(restaurante);
@@ -77,11 +74,28 @@ public class RestauranteService {
         Restaurante restaurante = this.restauranteRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESTAURANT_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-        if (this.restauranteRepository.findByNomeIgnoreCase(restauranteUpdateRequest.nome()).isPresent()) {
-                    throw new BusinessException(ErrorCode.RESTAURANT_ALREADY_EXISTS, HttpStatus.CONFLICT);
-        };
+        if (this.restauranteRepository.findByNomeIgnoreCase(restauranteUpdateRequest.nome()).isPresent() &&
+            !restaurante.getNome().equalsIgnoreCase(restauranteUpdateRequest.nome())) {
+            throw new BusinessException(ErrorCode.RESTAURANT_ALREADY_EXISTS, HttpStatus.CONFLICT);
+        }
 
         restauranteMapper.updateEntityFromDTO(restauranteUpdateRequest, restaurante);
+
+        if (restauranteUpdateRequest.idProprietario() != null) {
+            Usuario novoProprietario = this.usuarioRepository.findById(restauranteUpdateRequest.idProprietario())
+                    .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND));
+            restaurante.setDonoRestaurante(novoProprietario);
+        }
+
+        restaurante.getEnderecos().clear();
+
+        if (restauranteUpdateRequest.enderecos() != null && !restauranteUpdateRequest.enderecos().isEmpty()) {
+            restauranteUpdateRequest.enderecos().forEach(enderecoDTO -> {
+                EnderecoRestaurante endereco = enderecoMapper.toEnderecoRestaurante(enderecoDTO);
+                endereco.setRestaurante(restaurante);
+                restaurante.getEnderecos().add(endereco);
+            });
+        }
 
         Restaurante restauranteSalvo = this.restauranteRepository.save(restaurante);
         return restauranteMapper.toResponseDTO(restauranteSalvo);

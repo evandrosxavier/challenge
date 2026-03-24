@@ -1,125 +1,115 @@
-MyDelivery API - Sistema de Gestão de Entregas
+# MyDelivery API - Sistema de Gestão de Restaurantes 🍔🚀
 
-A MyDelivery API é uma solução robusta de backend desenvolvida para o gerenciamento de usuários e endereços, servindo como o módulo fundamental para um ecossistema completo de gestão de entregas. Este projeto foi concebido com foco em escalabilidade, segurança e aderência às melhores práticas de desenvolvimento de software moderno.
+Bem-vindo ao MyDelivery API, um sistema robusto de gestão de entregas desenvolvido como parte do Tech Challenge (Fase 2) do curso de Arquitetura e Desenvolvimento Java da FIAP.
 
-O sistema implementa uma API RESTful completa, utilizando o ecossistema Spring Boot 3 e Java 21, com persistência em banco de dados relacional e orquestração via containers, garantindo um ambiente de execução consistente e isolado.
+Esta API foi projetada para gerenciar usuários, tipos de usuários, restaurantes e itens de cardápio, utilizando as melhores práticas de desenvolvimento moderno e arquitetura de software.
 
+## 🏗️ Arquitetura do Projeto
 
+O projeto utiliza a Arquitetura Hexagonal (Ports & Adapters) combinada com princípios de Clean Architecture, garantindo que o núcleo da aplicação seja independente de tecnologias externas.
 
+### Estrutura de Pacotes:
 
-🏗️ Arquitetura do Sistema
+- **application**: Contém a lógica de negócio (service), as interfaces de saída (port) e o tratamento de erros customizado (exception).
+- **domain**: Contém as entidades de negócio puras (entities).
+- **infrastructure**: Implementa os adaptadores de persistência (persistence/adapter) e configurações técnicas (config).
+- **interfaces**: Camada de entrada com controllers, dtos e mappers (MapStruct).
+- **security**: Implementação de segurança baseada em JWT (JSON Web Token).
 
-A aplicação adota a Arquitetura em Camadas (Layered Architecture), um padrão que promove a separação de preocupações e facilita a manutenção e evolução do código.
+## 🛠️ Tecnologias Utilizadas
 
-| Camada | Responsabilidade |
-| --- | --- |
-| **Controller** | Camada de apresentação que expõe os endpoints REST e gerencia o contrato da API via DTOs. |
-| **Service** | Camada de lógica de negócio, onde residem as validações e orquestração de processos. |
-| **Repository** | Camada de persistência que abstrai o acesso ao banco de dados utilizando Spring Data JPA. |
-| **Model** | Representação das entidades de domínio e mapeamento objeto-relacional (ORM). |
+- Java 17+
+- Spring Boot 3.x
+- Spring Data JPA (Persistência)
+- PostgreSQL (Banco de Dados Relacional)
+- Docker & Docker Compose (Containerização)
+- MapStruct (Mapeamento de DTOs)
+- Jakarta Bean Validation (Validação de Dados)
+- Spring Security & JWT (Autenticação e Autorização)
+- OpenAPI / Swagger UI (Documentação da API)
+- JUnit 5 & Mockito (Testes Automatizados)
 
+## 🚀 Como Executar a Aplicação
 
+A aplicação está totalmente containerizada, facilitando o setup do ambiente.
 
+### Pré-requisitos:
 
-A infraestrutura é composta por um banco de dados PostgreSQL 16, orquestrado através do Docker Compose, o que simplifica o setup inicial e garante a paridade entre os ambientes de desenvolvimento e produção.
+- Docker e Docker Compose instalados.
 
+### Passo a Passo:
 
+1. Clone o repositório:
 
-
-🚀 Tecnologias e Boas Práticas
-
-O projeto foi desenvolvido sob o rigor de padrões de qualidade da indústria, garantindo um código limpo e profissional.
-
-•Spring Boot 3 & Java 21: Utilização das versões mais recentes para aproveitar melhorias de performance e sintaxe.
-
-•SOLID & DRY: Aplicação dos princípios de design para um código coeso e sem repetições desnecessárias.
-
-•Problem Detail (RFC 7807): Padronização das respostas de erro, fornecendo mensagens claras e estruturadas para os consumidores da API.
-
-•Bean Validation: Validação rigorosa dos dados de entrada diretamente nos DTOs.
-
-•OpenAPI 3 (Swagger): Documentação interativa e autodocumentada para facilitar o consumo da API.
-
-
-
-
-🛠️ Configuração e Execução
-
-A aplicação está totalmente containerizada, o que elimina a necessidade de instalações manuais de banco de dados ou dependências locais.
-
-Pré-requisitos
-
-•Docker Desktop instalado e em execução.
-
-•Git para clonagem do repositório.
-
-Passo a Passo
-
-1.Clonar o Repositório:
-
-Bash
-git clone https://github.com/evandrosxavier/challenge
+```bash
+git clone https://github.com/evandrosxavier/challenge.git
 cd challenge
+```
 
+2. Suba os containers (API + Banco de Dados):
 
-2.Executar com Docker Compose:
-
-Bash
+```bash
 docker-compose up --build
+```
 
-O comando --build garante que a imagem da aplicação seja construída com as alterações mais recentes.
+3. A API estará disponível em: http://localhost:8080
 
+## 📖 Documentação da API (Swagger)
 
-3.Acessar a Documentação:
-Após a inicialização, a documentação interativa estará disponível em:
-http://localhost:8080/swagger-ui.html
+Com a aplicação rodando, você pode acessar a documentação interativa do Swagger para testar os endpoints:
 
+🔗 **Swagger UI**: http://localhost:8080/swagger-ui.html
 
+## 📌 Principais Endpoints da API
 
+| Recurso | Método | Endpoint | Descrição |
+|---------|--------|----------|-----------|
+| Autenticação | POST | /auth/login | Autentica usuário e gera token JWT |
+| Usuários | POST | /api/v1/usuarios | Cadastro de novos usuários |
+| Usuários | GET | /api/v1/usuarios | Listagem e filtros de usuários |
+| Tipos de Usuário | POST | /api/v1/tipo-usuario | Cadastro de tipos (CLIENTE, DONO, etc) |
+| Restaurantes | POST | /api/v1/restaurantes | Cadastro de novos estabelecimentos |
+| Restaurantes | GET | /api/v1/restaurantes | Listagem de todos os restaurantes |
+| Itens de Cardápio | POST | /api/v1/itens-cardapio | Cadastro de itens para um restaurante |
+| Itens de Cardápio | GET | /api/v1/itens-cardapio | Listagem de itens e filtros |
 
-📑 Endpoints da API
+## 🔄 Fluxo de Utilização (Ordem de Cadastro)
 
-A API está organizada para oferecer uma experiência intuitiva e padronizada.
+Para garantir a integridade dos dados e o correto funcionamento dos relacionamentos, siga a ordem de cadastro abaixo ao testar a API:
 
+1. **Tipo de Usuário**: Cadastre primeiro os tipos (ex: CLIENTE, DONO_RESTAURANTE).
+2. **Usuário**: Cadastre o usuário vinculando-o a um tipoUsuarioId existente.
+3. **Restaurante**: Cadastre o estabelecimento vinculando-o a um usuarioId (Dono) existente.
+4. **Item de Cardápio**: Cadastre os itens vinculando-os a um restauranteId existente.
 
-Autenticação
+## ✅ Qualidade e Testes
 
-•POST /auth/login: Autentica o usuário e retorna um token JWT.
+O projeto possui um forte compromisso com a qualidade do código, apresentando:
 
-Gerenciamento de Usuários (/api/v1/usuarios)
+- **Cobertura de Testes**: Superior a 90%.
+- **Tratamento de Erros**: Padronizado via BusinessException e ErrorCode (RFC 7807).
+- **SOLID & Clean Code**: Aplicados em todas as camadas do sistema.
 
-•POST /: Criação de novos usuários com endereços vinculados.
+Para rodar os testes localmente:
 
-•GET /: Listagem geral ou filtrada por nome.
+```bash
+./mvnw test
+```
 
-•GET /{id}: Busca detalhada por identificador único.
+## 📂 Collections para Teste
 
-•PUT /{id}: Atualização de dados cadastrais.
+Na raiz do projeto, você encontrará a collection do Postman para facilitar os testes manuais:
 
-•PATCH /{id}/senha: Atualização segura de credenciais.
+- `postman/mydelivery_collection.json`
 
-•DELETE /{id}: Remoção de registros do sistema.
+## 👥 Autor
 
+- **Evandro Santos Xavier** - RM: 368088
+- **Curso**: Arquitetura e Desenvolvimento Java - FIAP
+- **GitHub**: evandrosxavier
+- **Repositório**: challenge
 
+## 📄 Licença
 
-🧪 Testes e Validação
-
-Para validar o funcionamento da API, você pode utilizar a Collection do Postman oficial do projeto:
-
-🔗 Acessar Collection Postman
-
-https://www.postman.com/mar8c8os/portiflio-fiap-postech/collection/11931430-29dba819-9187-4b2a-a8d7-ed09883406b3/?action=share&creator=11931430
-
-Além disso, o Swagger UI local permite realizar testes manuais diretamente pelo navegador, validando cenários de sucesso e as respostas padronizadas de erro.
-
-
-
-
-👤 Autor
-
-Evandro Santos Xavier
-
-•GitHub: evandrosxavier
-
-•Projeto: Challenge FIAP - MyDelivery API
+Este projeto é para fins acadêmicos como parte do Tech Challenge da FIAP.
 

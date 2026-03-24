@@ -1,0 +1,775 @@
+{
+  "info": {
+    "_postman_id": "29dba819-9187-4b2a-a8d7-ed09883406b3",
+    "name": "Challenge",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11931430"
+  },
+  "item": [
+    {
+      "name": "TipoUsuario",
+      "item": [
+        {
+          "name": "Listar Todos os Tipos de Usuários",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tipo-usuario",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tipo-usuario"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Tipo de Usuário Por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tipo-usuario/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tipo-usuario",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Novo Tipo de Usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descricao\": \"Sócio Proprietário\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tipo-usuario",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tipo-usuario"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Tipo de Usuário",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descricao\": \"Cliente\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tipo-usuario/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tipo-usuario",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Tipo de Usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tipo-usuario/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tipo-usuario",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Listar Todos os Usuários",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'GET' \\\n  'http://localhost:8080/api/v1/usuarios' \\\n  -H 'accept: */*'"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuário por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/usuarios/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "1"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'GET' \\\n  'http://localhost:8080/api/v1/usuarios/1' \\\n  -H 'accept: application/json'"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuarios por Nome",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/usuarios?nome=Silva",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ],
+              "query": [
+                {
+                  "key": "nome",
+                  "value": "Silva"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/usuarios/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "2"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'DELETE' \\\n  'http://localhost:8080/api/v1/usuarios/2' \\\n  -H 'accept: */*'"
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Usuário",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João da Silva Santos\",\n  \"email\": \"joao.santos@example.com\",\n  \"login\": \"joao.santos\",\n  \"tipoUsuario\": 3,\n  \"enderecos\": [\n    {\n      \"logradouro\": \"Avenida Paulista\",\n      \"numero\": \"1000\",\n      \"complemento\": \"Apto 101\",\n      \"bairro\": \"Bela Vista\",\n      \"cep\": \"01310100\",\n      \"cidade\": \"São Paulo\",\n      \"estado\": \"SP\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/usuarios/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "1"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'PUT' \\\n  'http://localhost:8080/api/v1/usuarios/1' \\\n  -H 'accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"nome\": \"João Santos\",\n  \"email\": \"joao.santos@example.com\",\n  \"login\": \"joao.santos\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"enderecos\": [\n    {\n      \"logradouro\": \"Avenida Paulista\",\n      \"numero\": \"1000\",\n      \"complemento\": \"Apto 101\",\n      \"bairro\": \"Bela Vista\",\n      \"cep\": \"01310100\",\n      \"cidade\": \"São Paulo\",\n      \"estado\": \"SP\"\n    }\n  ]\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar Novo Usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João da Silva\",\n  \"email\": \"joao.silva@example.com\",\n  \"login\": \"joao.silva\",\n  \"senha\": \"umaSenhaForte123\",\n  \"tipoUsuario\": 1,\n  \"enderecos\": [\n    {\n      \"logradouro\": \"Avenida Paulista\",\n      \"numero\": \"1000\",\n      \"complemento\": \"Apto 101\",\n      \"bairro\": \"Bela Vista\",\n      \"cep\": \"01310100\",\n      \"cidade\": \"São Paulo\",\n      \"estado\": \"SP\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Autenticaçao",
+      "item": [
+        {
+          "name": "Realiza Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"joao.silva\",\n  \"senha\": \"umaSenhaForte123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/login",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'POST' \\\n  'http://localhost:8080/auth/login' \\\n  -H 'accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"login\": \"joao.silva\",\n  \"senha\": \"umaSenhaForte123\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Senha",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"senhaAtual\": \"minhaSenhaAntiga123\",\n  \"novaSenha\": \"minhaNovaSenhaSuperForte456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/usuarios/1/senha",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "usuarios",
+                "1",
+                "senha"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'PATCH' \\\n  'http://localhost:8080/api/v1/usuarios/1/senha' \\\n  -H 'accept: */*' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"senhaAtual\": \"minhaSenhaAntiga123\",\n  \"novaSenha\": \"minhaNovaSenhaSuperForte456\"\n}'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Item de Cardápio",
+      "item": [
+        {
+          "name": "Buscar Item do Cardápio por Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/item-cardapio/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "item-cardapio",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar Item de Cardápio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Moqueca de Peixe\",\n  \"descricao\": \"Moqueca tradicional com peixe fresco e leite de coco\",\n  \"preco\": 45.5,\n  \"disponivelApenasNoRestaurante\": false,\n  \"fotoUrl\": \"https://api.restaurante.com/fotos/moqueca.jpg\",\n  \"idRestaurante\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/item-cardapio",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "item-cardapio"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Todos os Itens do Cardápio",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/item-cardapio",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "item-cardapio"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar item do Cardápio",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Moqueca de Cação\",\n  \"descricao\": \"Moqueca tradicional com cação e leite de coco\",\n  \"preco\": 45.5,\n  \"disponivelApenasNoRestaurante\": false,\n  \"fotoUrl\": \"https://api.restaurante.com/fotos/moqueca.jpg\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/item-cardapio/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "item-cardapio",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Item do Cardápio",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/item-cardapio/3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "item-cardapio",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Restaurante",
+      "item": [
+        {
+          "name": "Buscar Resturante por Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurantes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurantes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar todos os Restaurantes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurantes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Resturante",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurantes/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurantes",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Restaurante",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Pizzaria ABC Atualizada\",\n  \"tipoCozinha\": \"Italiana\",\n  \"horarioFuncionamento\": \"11:00 - 23:30\",\n  \"idProprietario\": 2,\n  \"enderecos\": [\n    {\n      \"logradouro\": \"Avenida Paulista\",\n      \"numero\": \"1000\",\n      \"complemento\": \"Térreo\",\n      \"bairro\": \"Bela Vista\",\n      \"cep\": \"01310100\",\n      \"cidade\": \"São Paulo\",\n      \"estado\": \"SP\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurantes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurantes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar Restaurante",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Camarões 2\",\n  \"tipoCozinha\": \"Frutos do Mar\",\n  \"horarioFuncionamento\": \"11:00 - 23:00\",\n  \"idDonoRestaurante\": 1,\n  \"enderecos\": [\n    {\n      \"logradouro\": \"Avenida Paulista\",\n      \"numero\": \"1000\",\n      \"complemento\": \"Apto 101, 3 andar\",\n      \"bairro\": \"Bela Vista\",\n      \"cep\": \"01310100\",\n      \"cidade\": \"São Paulo\",\n      \"estado\": \"SP\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurantes"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": ""
+    }
+  ]
+}

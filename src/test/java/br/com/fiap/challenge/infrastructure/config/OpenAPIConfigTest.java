@@ -41,7 +41,7 @@ class OpenAPIConfigTest {
     @Test
     @DisplayName("Deve ter descrição correta na API")
     void shouldHaveCorrectDescription() {
-        assertEquals("API RESTful para o sistema de gerenciamento de pedidos MyDelivery.",
+        assertEquals("API RESTful para o sistema de gerenciamento de pedidos via delivery.",
             openAPI.getInfo().getDescription());
     }
 

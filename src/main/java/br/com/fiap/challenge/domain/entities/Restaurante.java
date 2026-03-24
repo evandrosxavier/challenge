@@ -26,9 +26,9 @@ public class Restaurante {
     @Column(nullable = false, length = 150)
     private String nome;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_endereco_restaurante", nullable = false)
-    private EnderecoRestaurante endereco;
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<EnderecoRestaurante> enderecos = new ArrayList<>();
 
     @Column(name = "tipo_cozinha", nullable = false, length = 100)
     private String tipoCozinha;

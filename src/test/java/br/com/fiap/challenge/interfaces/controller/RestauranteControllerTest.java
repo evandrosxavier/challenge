@@ -63,12 +63,27 @@ class RestauranteControllerTest {
             "Italiana",
             "11:00-23:00",
             1L,
-            enderecoRequest
+            List.of(enderecoRequest)
         );
+        // Para testes do controller, usamos uma lista vazia para evitar problemas de validação
         restauranteUpdateRequest = new RestauranteUpdateRequest(
             "Pizzaria Bella Updated",
             "Italiana",
-            "11:00-00:00"
+            "11:00-00:00",
+            1L,
+            List.of()
+        );
+    }
+
+    private EnderecoRequestDTO createEnderecoRequest() {
+        return new EnderecoRequestDTO(
+            "Rua das Flores",
+            "123",
+            "Apt 456",
+            "Centro",
+            "01000-000",
+            "São Paulo",
+            "SP"
         );
     }
 

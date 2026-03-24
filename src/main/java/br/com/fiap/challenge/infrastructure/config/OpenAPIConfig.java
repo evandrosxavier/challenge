@@ -29,7 +29,7 @@ public class OpenAPIConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("MyDelivery API Challenge")
-                        .description("API RESTful para o sistema de gerenciamento de pedidos MyDelivery.")
+                        .description("API RESTful para o sistema de gerenciamento de pedidos via delivery.")
                         .version("v1.0.0")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org" )));
     }
