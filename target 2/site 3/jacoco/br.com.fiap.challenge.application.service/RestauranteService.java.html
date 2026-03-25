@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestauranteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">challenge</a> &gt; <a href="index.source.html" class="el_package">br.com.fiap.challenge.application.service</a> &gt; <span class="el_source">RestauranteService.java</span></div><h1>RestauranteService.java</h1><pre class="source lang-java linenums">package br.com.fiap.challenge.application.service;
+
+import br.com.fiap.challenge.application.port.RestauranteRepositoryPort;
+import br.com.fiap.challenge.application.port.UsuarioRepositoryPort;
+import br.com.fiap.challenge.interfaces.dto.request.RestauranteRequest;
+import br.com.fiap.challenge.interfaces.dto.request.RestauranteUpdateRequest;
+import br.com.fiap.challenge.interfaces.dto.response.RestauranteResponse;
+import br.com.fiap.challenge.application.exception.BusinessException;
+import br.com.fiap.challenge.interfaces.mapper.EnderecoMapper;
+import br.com.fiap.challenge.interfaces.mapper.RestauranteMapper;
+import br.com.fiap.challenge.domain.entities.EnderecoRestaurante;
+import br.com.fiap.challenge.application.exception.ErrorCode;
+import br.com.fiap.challenge.domain.entities.Restaurante;
+import br.com.fiap.challenge.domain.entities.Usuario;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+public class RestauranteService {
+
+    private final RestauranteRepositoryPort restauranteRepository;
+    private final RestauranteMapper restauranteMapper;
+    private final EnderecoMapper enderecoMapper;
+    private final UsuarioRepositoryPort usuarioRepository;
+
+    public RestauranteService(
+        RestauranteRepositoryPort restauranteRepository,
+        RestauranteMapper restauranteMapper,
+        EnderecoMapper enderecoMapper,
+        UsuarioRepositoryPort usuarioRepository
+<span class="fc" id="L35">    ) {</span>
+<span class="fc" id="L36">        this.restauranteRepository = restauranteRepository;</span>
+<span class="fc" id="L37">        this.restauranteMapper = restauranteMapper;</span>
+<span class="fc" id="L38">        this.enderecoMapper = enderecoMapper;</span>
+<span class="fc" id="L39">        this.usuarioRepository = usuarioRepository;</span>
+<span class="fc" id="L40">    }</span>
+
+    public RestauranteResponse findById(Long id) {
+<span class="fc" id="L43">        Restaurante restaurante = this.restauranteRepository.findById(id)</span>
+<span class="fc" id="L44">                .orElseThrow(() -&gt; new BusinessException(ErrorCode.RESTAURANT_NOT_FOUND, HttpStatus.NOT_FOUND));</span>
+<span class="fc" id="L45">        return restauranteMapper.toResponseDTO(restaurante);</span>
+    }
+
+    public List&lt;RestauranteResponse&gt; findAll() {
+<span class="fc" id="L49">        return this.restauranteRepository.findAll().stream()</span>
+<span class="fc" id="L50">                .map(restauranteMapper::toResponseDTO).toList();</span>
+    }
+
+    @Transactional
+    public RestauranteResponse save(RestauranteRequest restauranteRequest) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (this.restauranteRepository.findByNomeIgnoreCase(restauranteRequest.nome()).isPresent()) {</span>
+<span class="fc" id="L56">            throw new BusinessException(ErrorCode.RESTAURANT_ALREADY_EXISTS, HttpStatus.CONFLICT);</span>
+        }
+
+<span class="fc" id="L59">        Usuario donoRestaurante = this.usuarioRepository.findById(restauranteRequest.idDonoRestaurante())</span>
+<span class="pc" id="L60">                .orElseThrow(() -&gt; new BusinessException(ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND));</span>
+
+<span class="fc" id="L62">        Restaurante restaurante = restauranteMapper.toEntity(restauranteRequest);</span>
+
+<span class="fc" id="L64">        restaurante.setDonoRestaurante(donoRestaurante);</span>
+
+<span class="fc" id="L66">        restaurante.setDataCriacao(LocalDateTime.now());</span>
+
+<span class="fc" id="L68">        Restaurante restauranteSalvo = this.restauranteRepository.save(restaurante);</span>
+<span class="fc" id="L69">        return restauranteMapper.toResponseDTO(restauranteSalvo);</span>
+    }
+
+    @Transactional
+    public RestauranteResponse update(Long id, RestauranteUpdateRequest restauranteUpdateRequest) {
+<span class="fc" id="L74">        Restaurante restaurante = this.restauranteRepository.findById(id)</span>
+<span class="fc" id="L75">                .orElseThrow(() -&gt; new BusinessException(ErrorCode.RESTAURANT_NOT_FOUND, HttpStatus.NOT_FOUND));</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (this.restauranteRepository.findByNomeIgnoreCase(restauranteUpdateRequest.nome()).isPresent() &amp;&amp;</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            !restaurante.getNome().equalsIgnoreCase(restauranteUpdateRequest.nome())) {</span>
+<span class="fc" id="L79">            throw new BusinessException(ErrorCode.RESTAURANT_ALREADY_EXISTS, HttpStatus.CONFLICT);</span>
+        }
+
+<span class="fc" id="L82">        restauranteMapper.updateEntityFromDTO(restauranteUpdateRequest, restaurante);</span>
+
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        if (restauranteUpdateRequest.idProprietario() != null) {</span>
+<span class="fc" id="L85">            Usuario novoProprietario = this.usuarioRepository.findById(restauranteUpdateRequest.idProprietario())</span>
+<span class="pc" id="L86">                    .orElseThrow(() -&gt; new BusinessException(ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND));</span>
+<span class="fc" id="L87">            restaurante.setDonoRestaurante(novoProprietario);</span>
+        }
+
+<span class="fc" id="L90">        restaurante.getEnderecos().clear();</span>
+
+<span class="pc bpc" id="L92" title="2 of 4 branches missed.">        if (restauranteUpdateRequest.enderecos() != null &amp;&amp; !restauranteUpdateRequest.enderecos().isEmpty()) {</span>
+<span class="fc" id="L93">            restauranteUpdateRequest.enderecos().forEach(enderecoDTO -&gt; {</span>
+<span class="fc" id="L94">                EnderecoRestaurante endereco = enderecoMapper.toEnderecoRestaurante(enderecoDTO);</span>
+<span class="fc" id="L95">                endereco.setRestaurante(restaurante);</span>
+<span class="fc" id="L96">                restaurante.getEnderecos().add(endereco);</span>
+<span class="fc" id="L97">            });</span>
+        }
+
+<span class="fc" id="L100">        Restaurante restauranteSalvo = this.restauranteRepository.save(restaurante);</span>
+<span class="fc" id="L101">        return restauranteMapper.toResponseDTO(restauranteSalvo);</span>
+    }
+
+    @Transactional
+    public void delete(Long id) {
+<span class="fc" id="L106">        this.restauranteRepository.findById(id)</span>
+<span class="fc" id="L107">                .orElseThrow(() -&gt; new BusinessException(ErrorCode.RESTAURANT_NOT_FOUND, HttpStatus.NOT_FOUND));</span>
+<span class="fc" id="L108">        this.restauranteRepository.deleteById(id);</span>
+<span class="fc" id="L109">    }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

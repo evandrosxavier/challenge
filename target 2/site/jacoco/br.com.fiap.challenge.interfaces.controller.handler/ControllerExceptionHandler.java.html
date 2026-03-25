@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ControllerExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">challenge</a> &gt; <a href="index.source.html" class="el_package">br.com.fiap.challenge.interfaces.controller.handler</a> &gt; <span class="el_source">ControllerExceptionHandler.java</span></div><h1>ControllerExceptionHandler.java</h1><pre class="source lang-java linenums">package br.com.fiap.challenge.interfaces.controller.handler;
+
+import br.com.fiap.challenge.application.exception.BusinessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
+
+@ControllerAdvice
+<span class="fc" id="L19">public class ControllerExceptionHandler {</span>
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity&lt;ProblemDetail&gt; handlerBusinessException(BusinessException e) {
+<span class="fc" id="L23">        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(e.getHttpStatus(), e.getMessage());</span>
+<span class="fc" id="L24">        problemDetail.setTitle(&quot;Erro de Negócio&quot;);</span>
+<span class="fc" id="L25">        problemDetail.setType(URI.create(&quot;https://api.mydelivery.com/errors/business-error&quot;));</span>
+<span class="fc" id="L26">        return ResponseEntity.status(e.getHttpStatus()).body(problemDetail);</span>
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ProblemDetail&gt; handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+<span class="fc" id="L31">        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);</span>
+<span class="fc" id="L32">        problemDetail.setTitle(&quot;Erro de Validação&quot;);</span>
+<span class="fc" id="L33">        problemDetail.setDetail(&quot;Um ou mais campos falharam na validação.&quot;);</span>
+<span class="fc" id="L34">        problemDetail.setType(URI.create(&quot;https://api.mydelivery.com/errors/validation-error&quot; ));</span>
+
+<span class="fc" id="L36">        List&lt;String&gt; errors = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        for (FieldError error : e.getBindingResult().getFieldErrors()) {</span>
+<span class="fc" id="L38">            errors.add(error.getField() + &quot;: &quot; + error.getDefaultMessage());</span>
+<span class="fc" id="L39">        }</span>
+
+<span class="fc" id="L41">        problemDetail.setProperty(&quot;validation_errors&quot;, errors);</span>
+
+<span class="fc" id="L43">        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);</span>
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity&lt;ProblemDetail&gt; handlerHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+<span class="fc" id="L48">        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);</span>
+<span class="fc" id="L49">        problemDetail.setTitle(&quot;Erro de Validação&quot;);</span>
+<span class="fc" id="L50">        problemDetail.setDetail(&quot;Erro ao processar a requisição. Verifique se todos os campos obrigatórios foram preenchidos corretamente.&quot;);</span>
+<span class="fc" id="L51">        problemDetail.setType(URI.create(&quot;https://api.mydelivery.com/errors/validation-error&quot;));</span>
+
+<span class="fc" id="L53">        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
