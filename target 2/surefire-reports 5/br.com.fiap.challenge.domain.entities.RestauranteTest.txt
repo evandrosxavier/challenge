@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: br.com.fiap.challenge.domain.entities.RestauranteTest
+Test set: br.com.fiap.challenge.domain.RestauranteTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in br.com.fiap.challenge.domain.entities.RestauranteTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in br.com.fiap.challenge.domain.RestauranteTest

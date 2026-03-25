@@ -1,12 +1,11 @@
 package br.com.fiap.challenge.application.service;
 
 import br.com.fiap.challenge.application.exception.BusinessException;
-import br.com.fiap.challenge.application.exception.ErrorCode;
 import br.com.fiap.challenge.application.port.RestauranteRepositoryPort;
 import br.com.fiap.challenge.application.port.UsuarioRepositoryPort;
-import br.com.fiap.challenge.domain.entities.EnderecoRestaurante;
-import br.com.fiap.challenge.domain.entities.Restaurante;
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.EnderecoRestaurante;
+import br.com.fiap.challenge.domain.Restaurante;
+import br.com.fiap.challenge.domain.Usuario;
 import br.com.fiap.challenge.interfaces.dto.request.EnderecoRequestDTO;
 import br.com.fiap.challenge.interfaces.dto.request.RestauranteRequest;
 import br.com.fiap.challenge.interfaces.dto.request.RestauranteUpdateRequest;
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;

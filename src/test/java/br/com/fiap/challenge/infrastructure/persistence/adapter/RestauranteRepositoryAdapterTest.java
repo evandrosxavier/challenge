@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.infrastructure.persistence.adapter;
 
-import br.com.fiap.challenge.domain.entities.Restaurante;
+import br.com.fiap.challenge.domain.Restaurante;
 import br.com.fiap.challenge.infrastructure.persistence.repository.RestauranteJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.application.port;
 
-import br.com.fiap.challenge.domain.entities.TipoUsuario;
+import br.com.fiap.challenge.domain.TipoUsuario;
 
 import java.util.List;
 import java.util.Optional;

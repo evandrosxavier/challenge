@@ -1,7 +1,7 @@
 package br.com.fiap.challenge.infrastructure.persistence.adapter;
 
 import br.com.fiap.challenge.application.port.RestauranteRepositoryPort;
-import br.com.fiap.challenge.domain.entities.Restaurante;
+import br.com.fiap.challenge.domain.Restaurante;
 import br.com.fiap.challenge.infrastructure.persistence.repository.RestauranteJpaRepository;
 import org.springframework.stereotype.Component;
 

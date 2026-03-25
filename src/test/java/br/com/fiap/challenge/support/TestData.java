@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.support;
 
-import br.com.fiap.challenge.domain.entities.*;
+import br.com.fiap.challenge.domain.*;
 import br.com.fiap.challenge.interfaces.dto.request.*;
 import br.com.fiap.challenge.interfaces.dto.response.*;
 import java.math.BigDecimal;

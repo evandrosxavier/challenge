@@ -2,8 +2,8 @@ package br.com.fiap.challenge.interfaces.mapper;
 
 import br.com.fiap.challenge.interfaces.dto.request.EnderecoRequestDTO;
 import br.com.fiap.challenge.interfaces.dto.response.EnderecoResponseDTO;
-import br.com.fiap.challenge.domain.entities.EnderecoUsuario;
-import br.com.fiap.challenge.domain.entities.EnderecoRestaurante;
+import br.com.fiap.challenge.domain.EnderecoUsuario;
+import br.com.fiap.challenge.domain.EnderecoRestaurante;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

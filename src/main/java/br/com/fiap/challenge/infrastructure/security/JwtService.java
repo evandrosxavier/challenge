@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.infrastructure.security;
 
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;

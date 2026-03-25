@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.domain.entities;
+package br.com.fiap.challenge.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

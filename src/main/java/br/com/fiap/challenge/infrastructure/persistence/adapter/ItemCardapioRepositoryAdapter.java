@@ -1,7 +1,7 @@
 package br.com.fiap.challenge.infrastructure.persistence.adapter;
 
 import br.com.fiap.challenge.application.port.ItemCardapioRepositoryPort;
-import br.com.fiap.challenge.domain.entities.ItemCardapio;
+import br.com.fiap.challenge.domain.ItemCardapio;
 import br.com.fiap.challenge.infrastructure.persistence.repository.ItemCardapioJpaRepository;
 import org.springframework.stereotype.Component;
 

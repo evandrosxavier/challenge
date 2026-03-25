@@ -4,7 +4,7 @@ package br.com.fiap.challenge.interfaces.mapper;
 import br.com.fiap.challenge.interfaces.dto.request.ItemCardapioRequest;
 import br.com.fiap.challenge.interfaces.dto.request.ItemCardapioUpdateRequest;
 import br.com.fiap.challenge.interfaces.dto.response.ItemCardapioResponse;
-import br.com.fiap.challenge.domain.entities.ItemCardapio;
+import br.com.fiap.challenge.domain.ItemCardapio;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

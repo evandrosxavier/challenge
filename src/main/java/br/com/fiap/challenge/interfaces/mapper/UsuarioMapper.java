@@ -3,7 +3,7 @@ package br.com.fiap.challenge.interfaces.mapper;
 import br.com.fiap.challenge.interfaces.dto.request.UsuarioCreateRequestDTO;
 import br.com.fiap.challenge.interfaces.dto.request.UsuarioUpdateRequestDTO;
 import br.com.fiap.challenge.interfaces.dto.response.UsuarioResponseDTO;
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.Usuario;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

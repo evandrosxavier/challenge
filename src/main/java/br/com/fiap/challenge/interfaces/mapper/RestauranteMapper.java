@@ -3,7 +3,7 @@ package br.com.fiap.challenge.interfaces.mapper;
 import br.com.fiap.challenge.interfaces.dto.request.RestauranteRequest;
 import br.com.fiap.challenge.interfaces.dto.request.RestauranteUpdateRequest;
 import br.com.fiap.challenge.interfaces.dto.response.RestauranteResponse;
-import br.com.fiap.challenge.domain.entities.Restaurante;
+import br.com.fiap.challenge.domain.Restaurante;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

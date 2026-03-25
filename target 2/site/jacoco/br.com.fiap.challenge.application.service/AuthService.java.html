@@ -4,7 +4,7 @@ import br.com.fiap.challenge.interfaces.dto.request.LoginRequestDTO;
 import br.com.fiap.challenge.interfaces.dto.response.TokenResponseDTO;
 import br.com.fiap.challenge.application.exception.BusinessException;
 import br.com.fiap.challenge.application.exception.ErrorCode;
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.Usuario;
 import br.com.fiap.challenge.infrastructure.persistence.repository.UsuarioJpaRepository;
 import br.com.fiap.challenge.infrastructure.security.JwtService;
 import org.springframework.http.HttpStatus;

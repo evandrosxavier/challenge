@@ -7,7 +7,7 @@ import br.com.fiap.challenge.interfaces.dto.response.TipoUsuarioResponseDTO;
 import br.com.fiap.challenge.application.exception.BusinessException;
 import br.com.fiap.challenge.interfaces.mapper.TipoUsuarioMapper;
 import br.com.fiap.challenge.application.exception.ErrorCode;
-import br.com.fiap.challenge.domain.entities.TipoUsuario;
+import br.com.fiap.challenge.domain.TipoUsuario;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

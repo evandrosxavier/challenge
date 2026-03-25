@@ -1,7 +1,7 @@
 package br.com.fiap.challenge.infrastructure.security;
 
-import br.com.fiap.challenge.domain.entities.TipoUsuario;
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.TipoUsuario;
+import br.com.fiap.challenge.domain.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

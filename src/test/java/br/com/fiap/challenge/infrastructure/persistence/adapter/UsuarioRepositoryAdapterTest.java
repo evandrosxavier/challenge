@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.infrastructure.persistence.adapter;
 
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.Usuario;
 import br.com.fiap.challenge.infrastructure.persistence.repository.UsuarioJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.domain.entities;
+package br.com.fiap.challenge.domain;
 
 
 import jakarta.persistence.*;

@@ -1,6 +1,7 @@
 package br.com.fiap.challenge.application.service;
 
 
+import br.com.fiap.challenge.domain.EnderecoUsuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,8 @@ import br.com.fiap.challenge.application.exception.BusinessException;
 import br.com.fiap.challenge.application.exception.ErrorCode;
 import br.com.fiap.challenge.application.port.TipoUsuarioRepositoryPort;
 import br.com.fiap.challenge.application.port.UsuarioRepositoryPort;
-import br.com.fiap.challenge.domain.entities.TipoUsuario;
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.TipoUsuario;
+import br.com.fiap.challenge.domain.Usuario;
 import br.com.fiap.challenge.interfaces.dto.request.EnderecoRequestDTO;
 import br.com.fiap.challenge.interfaces.dto.request.UsuarioCreateRequestDTO;
 import br.com.fiap.challenge.interfaces.dto.request.UsuarioUpdateRequestDTO;
@@ -318,7 +319,7 @@ class UsuarioServiceTest {
         when(tipoUsuarioRepository.findById(1L)).thenReturn(Optional.of(tipoUsuario));
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
         when(usuarioMapper.toResponseDTO(usuario)).thenReturn(usuarioResponseDTO);
-        when(enderecoMapper.toEnderecoUsuario(enderecoRequestDTO)).thenReturn(new br.com.fiap.challenge.domain.entities.EnderecoUsuario());
+        when(enderecoMapper.toEnderecoUsuario(enderecoRequestDTO)).thenReturn(new EnderecoUsuario());
 
         UsuarioResponseDTO resultado = usuarioService.update(updateDTO, 1L);
 

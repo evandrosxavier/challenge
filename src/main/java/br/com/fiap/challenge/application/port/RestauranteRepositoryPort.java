@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.application.port;
 
-import br.com.fiap.challenge.domain.entities.Restaurante;
+import br.com.fiap.challenge.domain.Restaurante;
 
 import java.util.List;
 import java.util.Optional;

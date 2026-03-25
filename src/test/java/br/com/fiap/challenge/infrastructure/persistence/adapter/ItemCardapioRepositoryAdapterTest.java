@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.infrastructure.persistence.adapter;
 
-import br.com.fiap.challenge.domain.entities.ItemCardapio;
+import br.com.fiap.challenge.domain.ItemCardapio;
 import br.com.fiap.challenge.infrastructure.persistence.repository.ItemCardapioJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

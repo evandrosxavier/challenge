@@ -1,7 +1,7 @@
 package br.com.fiap.challenge.infrastructure.persistence.adapter;
 
 import br.com.fiap.challenge.application.port.TipoUsuarioRepositoryPort;
-import br.com.fiap.challenge.domain.entities.TipoUsuario;
+import br.com.fiap.challenge.domain.TipoUsuario;
 import br.com.fiap.challenge.infrastructure.persistence.repository.TipoUsuarioJpaRepository;
 import org.springframework.stereotype.Component;
 

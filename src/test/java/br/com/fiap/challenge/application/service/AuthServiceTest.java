@@ -1,9 +1,8 @@
 package br.com.fiap.challenge.application.service;
 
 import br.com.fiap.challenge.application.exception.BusinessException;
-import br.com.fiap.challenge.application.exception.ErrorCode;
-import br.com.fiap.challenge.domain.entities.TipoUsuario;
-import br.com.fiap.challenge.domain.entities.Usuario;
+import br.com.fiap.challenge.domain.TipoUsuario;
+import br.com.fiap.challenge.domain.Usuario;
 import br.com.fiap.challenge.infrastructure.persistence.repository.UsuarioJpaRepository;
 import br.com.fiap.challenge.infrastructure.security.JwtService;
 import br.com.fiap.challenge.interfaces.dto.request.LoginRequestDTO;
@@ -17,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.InOrder;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
