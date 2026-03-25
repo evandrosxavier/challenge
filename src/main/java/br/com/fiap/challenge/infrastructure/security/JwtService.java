@@ -2,7 +2,6 @@ package br.com.fiap.challenge.infrastructure.security;
 
 import br.com.fiap.challenge.domain.entities.Usuario;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class JwtService {
     public String gerarToken(Usuario usuario) {
 
         Date agora = new Date();
-        Date expiracao = new Date(agora.getTime() + 1000 * 60 * 60); // 1h
+        Date expiracao = new Date(agora.getTime() + 1000 * 60 * 60);
 
         return Jwts.builder()
                 .setSubject(usuario.getLogin())
@@ -30,12 +29,14 @@ public class JwtService {
                 .claim("tipo", usuario.getTipoUsuario().getDescricao())
                 .setIssuedAt(agora)
                 .setExpiration(expiracao)
-                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .signWith(SECRET_KEY)
                 .compact();
     }
+
     public String extrairLogin(String token) {
-        return Jwts.parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -43,8 +44,9 @@ public class JwtService {
 
     public boolean isTokenValido(String token) {
         try {
-            Jwts.parser()
+            Jwts.parserBuilder()
                     .setSigningKey(SECRET_KEY)
+                    .build()
                     .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
@@ -53,16 +55,18 @@ public class JwtService {
     }
 
     public String getLogin(String token) {
-        return Jwts.parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
 
     public String getTipo(String token) {
-        return Jwts.parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .get("tipo", String.class);

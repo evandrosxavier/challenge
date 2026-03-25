@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.validation.FieldError;
@@ -30,6 +30,19 @@ class ControllerExceptionHandlerTest {
 
     @Autowired
     private ControllerExceptionHandler handler;
+
+    private static MethodParameter dummyMethodParameter() {
+        try {
+            return new MethodParameter(
+                    ControllerExceptionHandlerTest.class.getDeclaredMethod("dummyMethod", String.class), 0);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void dummyMethod(String param) {
+    }
 
     @Nested
     @DisplayName("BusinessException Handler Tests")
@@ -131,7 +144,7 @@ class ControllerExceptionHandlerTest {
             MapBindingResult bindingResult = new MapBindingResult(target, "test");
             bindingResult.addError(new FieldError("test", "email", "Email inválido"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 
@@ -147,7 +160,7 @@ class ControllerExceptionHandlerTest {
             MapBindingResult bindingResult = new MapBindingResult(target, "test");
             bindingResult.addError(new FieldError("test", "nome", "Nome é obrigatório"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 
@@ -161,7 +174,7 @@ class ControllerExceptionHandlerTest {
             MapBindingResult bindingResult = new MapBindingResult(target, "test");
             bindingResult.addError(new FieldError("test", "email", "Email inválido"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 
@@ -176,7 +189,7 @@ class ControllerExceptionHandlerTest {
             MapBindingResult bindingResult = new MapBindingResult(target, "test");
             bindingResult.addError(new FieldError("test", "email", "Email inválido"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 
@@ -191,7 +204,7 @@ class ControllerExceptionHandlerTest {
             MapBindingResult bindingResult = new MapBindingResult(target, "test");
             bindingResult.addError(new FieldError("test", "email", "Email inválido"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 
@@ -208,7 +221,7 @@ class ControllerExceptionHandlerTest {
             bindingResult.addError(new FieldError("test", "email", "Email inválido"));
             bindingResult.addError(new FieldError("test", "nome", "Nome é obrigatório"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 
@@ -226,7 +239,7 @@ class ControllerExceptionHandlerTest {
             MapBindingResult bindingResult = new MapBindingResult(target, "test");
             bindingResult.addError(new FieldError("test", "email", "Email inválido"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 
@@ -244,7 +257,7 @@ class ControllerExceptionHandlerTest {
             MapBindingResult bindingResult = new MapBindingResult(target, "test");
             bindingResult.addError(new FieldError("test", "email", "Email inválido"));
 
-            var exception = new MethodArgumentNotValidException(null, bindingResult);
+            var exception = new MethodArgumentNotValidException(dummyMethodParameter(), bindingResult);
 
             var response = handler.handlerMethodArgumentNotValidException(exception);
 

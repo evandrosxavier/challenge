@@ -145,7 +145,6 @@ class RestauranteServiceTest {
             when(restauranteMapper.toEntity(request)).thenReturn(restaurante);
             when(restauranteRepository.findByNomeIgnoreCase("Pizzaria Bella")).thenReturn(Optional.empty());
             when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
-            when(enderecoMapper.toEnderecoRestaurante(any())).thenReturn(mock(br.com.fiap.challenge.domain.entities.EnderecoRestaurante.class));
             when(restauranteRepository.save(restaurante)).thenReturn(restaurante);
             when(restauranteMapper.toResponseDTO(restaurante)).thenReturn(restauranteResponse);
 
@@ -199,6 +198,7 @@ class RestauranteServiceTest {
 
             when(restauranteRepository.findById(1L)).thenReturn(Optional.of(restaurante));
             when(restauranteRepository.findByNomeIgnoreCase("Pizzaria Bella Premium")).thenReturn(Optional.empty());
+            when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
             when(enderecoMapper.toEnderecoRestaurante(any(EnderecoRequestDTO.class))).thenReturn(enderecoRestaurante);
             when(restauranteRepository.save(any(Restaurante.class))).thenReturn(restaurante);
             when(restauranteMapper.toResponseDTO(restaurante)).thenReturn(restauranteResponse);
@@ -280,6 +280,7 @@ class RestauranteServiceTest {
             when(restauranteRepository.findById(1L)).thenReturn(Optional.of(restaurante));
             when(restauranteRepository.findByNomeIgnoreCase("Pizzaria Nova"))
                 .thenReturn(Optional.empty());
+            when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
             when(enderecoMapper.toEnderecoRestaurante(any(EnderecoRequestDTO.class))).thenReturn(enderecoRestaurante);
             when(restauranteRepository.save(any(Restaurante.class))).thenReturn(restaurante);
             when(restauranteMapper.toResponseDTO(restaurante)).thenReturn(restauranteResponse);

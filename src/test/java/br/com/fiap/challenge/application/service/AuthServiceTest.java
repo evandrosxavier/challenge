@@ -238,7 +238,6 @@ class AuthServiceTest {
         @Test
         @DisplayName("Deve gerar tokens diferentes para usuários diferentes")
         void shouldGenerateDifferentTokensForDifferentUsers() {
-            // Setup usuário 1
             LoginRequestDTO request1 = mock(LoginRequestDTO.class);
             when(request1.login()).thenReturn("joao.silva");
             when(request1.senha()).thenReturn("senha123");
@@ -252,7 +251,6 @@ class AuthServiceTest {
 
             TokenResponseDTO result1 = authService.login(request1);
 
-            // Setup usuário 2
             LoginRequestDTO request2 = mock(LoginRequestDTO.class);
             when(request2.login()).thenReturn("admin");
             when(request2.senha()).thenReturn("admin123");

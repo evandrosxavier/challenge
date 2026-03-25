@@ -10,7 +10,6 @@ import java.util.List;
 
 public class TestData {
 
-    // === TIPO USUARIO ===
     public static TipoUsuario createTipoUsuario() {
         TipoUsuario tipo = new TipoUsuario();
         tipo.setId(1L);
@@ -26,7 +25,6 @@ public class TestData {
         return new TipoUsuarioUpdateDTO("GERENTE");
     }
 
-    // === ENDERECO ===
     public static EnderecoUsuario createEnderecoUsuario() {
         EnderecoUsuario endereco = new EnderecoUsuario();
         endereco.setId(1L);
@@ -60,7 +58,6 @@ public class TestData {
         return endereco;
     }
 
-    // === USUARIO ===
     public static Usuario createUsuario() {
         Usuario usuario = new Usuario();
         usuario.setId(1L);
@@ -94,7 +91,6 @@ public class TestData {
         );
     }
 
-    // === RESTAURANTE ===
     public static Restaurante createRestaurante() {
         Restaurante restaurante = new Restaurante();
         restaurante.setId(1L);
@@ -125,7 +121,6 @@ public class TestData {
         );
     }
 
-    // === ITEM CARDAPIO ===
     public static ItemCardapio createItemCardapio() {
         ItemCardapio item = new ItemCardapio();
         item.setId(1L);
@@ -154,7 +149,6 @@ public class TestData {
         );
     }
 
-    // === LOGIN ===
     public static LoginRequestDTO createLoginRequest() {
         return new LoginRequestDTO("joao.silva", "senha123");
     }

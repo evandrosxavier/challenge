@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,7 +38,7 @@ class RestauranteControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @MockitoBean
     private RestauranteService restauranteService;
 
     private RestauranteResponse restauranteResponse;
@@ -65,7 +65,6 @@ class RestauranteControllerTest {
             1L,
             List.of(enderecoRequest)
         );
-        // Para testes do controller, usamos uma lista vazia para evitar problemas de validação
         restauranteUpdateRequest = new RestauranteUpdateRequest(
             "Pizzaria Bella Updated",
             "Italiana",
@@ -336,7 +335,6 @@ class RestauranteControllerTest {
         @Test
         @DisplayName("Deve validar fluxo completo: buscar, atualizar e deletar")
         void shouldValidateCompleteFlowWithoutCreate() throws Exception {
-            // Buscar
             when(restauranteService.findById(1L))
                 .thenReturn(restauranteResponse);
 
@@ -345,7 +343,6 @@ class RestauranteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1));
 
-            // Atualizar
             RestauranteResponse updatedResponse = new RestauranteResponse(1L, "Pizzaria Bella Updated", "Italiana", "11:00-00:00", null, null, null);
 
             when(restauranteService.update(eq(1L), any(RestauranteUpdateRequest.class)))
@@ -357,7 +354,6 @@ class RestauranteControllerTest {
                     .content(updateBody))
                 .andExpect(status().isOk());
 
-            // Deletar
             doNothing().when(restauranteService).delete(1L);
 
             mockMvc.perform(delete("/api/v1/restaurantes/1")

@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false, of = "id")
+@EqualsAndHashCode(callSuper = true)
 @ToString(exclude = "restaurante")
 
 @Entity

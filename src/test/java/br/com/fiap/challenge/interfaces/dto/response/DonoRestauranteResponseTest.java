@@ -200,7 +200,6 @@ class DonoRestauranteResponseTest {
             set.add(response2);
             set.add(response3);
 
-            // response1 e response2 são iguais, então apenas 2 elementos no set
             assertEquals(2, set.size());
         }
     }
@@ -301,8 +300,6 @@ class DonoRestauranteResponseTest {
         void shouldBeImmutable() {
             var response = new DonoRestauranteResponse(1L, "João Silva", "joao@example.com");
 
-            // Records são imutáveis, não há setters
-            // Apenas verificamos que os valores permanecem iguais
             assertEquals(1L, response.id());
             assertEquals("João Silva", response.nome());
             assertEquals("joao@example.com", response.email());
@@ -349,8 +346,7 @@ class DonoRestauranteResponseTest {
         void shouldSerializeCorrectlyForJSON() {
             var response = new DonoRestauranteResponse(1L, "João Silva", "joao@example.com");
 
-            // Verificar que todos os campos estão disponíveis para serialização
-            assertTrue(response.id() != null || response.id() == null); // sempre verdade
+            assertTrue(response.id() != null || response.id() == null);
             assertTrue(response.nome() != null || response.nome() == null);
             assertTrue(response.email() != null || response.email() == null);
         }

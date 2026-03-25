@@ -15,11 +15,16 @@ import org.mapstruct.MappingTarget;
 )
 public interface UsuarioMapper {
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "dataDaUltimaAlteracao", ignore = true)
     @Mapping(target = "tipoUsuario", ignore = true)
     Usuario toEntity(UsuarioCreateRequestDTO usuarioCreateRequestDTO);
 
     UsuarioResponseDTO toResponseDTO(Usuario usuario);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "senha", ignore = true)
+    @Mapping(target = "dataDaUltimaAlteracao", ignore = true)
     @Mapping(target = "enderecos", ignore = true)
     @Mapping(target = "tipoUsuario", ignore = true)
     void updateEntityFromDTO(UsuarioUpdateRequestDTO usuarioUpdateRequestDTO, @MappingTarget Usuario usuario);

@@ -75,7 +75,6 @@ class JwtServiceSecurityTest {
             String token1 = jwtService.gerarToken(usuario);
             String token2 = jwtService.gerarToken(usuario);
 
-            // Tokens podem ser diferentes devido ao timestamp
             assertNotNull(token1);
             assertNotNull(token2);
         }
@@ -87,9 +86,9 @@ class JwtServiceSecurityTest {
             String[] parts = token.split("\\.");
 
             assertEquals(3, parts.length);
-            assertTrue(parts[0].length() > 0); // Header
-            assertTrue(parts[1].length() > 0); // Payload
-            assertTrue(parts[2].length() > 0); // Signature
+            assertTrue(parts[0].length() > 0);
+            assertTrue(parts[1].length() > 0);
+            assertTrue(parts[2].length() > 0);
         }
     }
 
@@ -197,7 +196,9 @@ class JwtServiceSecurityTest {
         @DisplayName("Deve rejeitar token modificado")
         void shouldRejectModifiedToken() {
             String token = jwtService.gerarToken(usuario);
-            String modifiedToken = token.substring(0, token.length() - 1) + "X";
+            String[] parts = token.split("\\.");
+            String corruptedPayload = parts[1].substring(0, parts[1].length() - 3) + "abc";
+            String modifiedToken = parts[0] + "." + corruptedPayload + "." + parts[2];
 
             assertFalse(jwtService.isTokenValido(modifiedToken));
         }
@@ -348,7 +349,6 @@ class JwtServiceSecurityTest {
             String token = jwtService.gerarToken(usuario);
             String[] parts = token.split("\\.");
 
-            // Alterando payload
             String alteredToken = parts[0] + ".ALTERED." + parts[2];
             assertFalse(jwtService.isTokenValido(alteredToken));
         }
@@ -358,7 +358,7 @@ class JwtServiceSecurityTest {
         void shouldInvalidateTokenWithSingleCharacterChange() {
             String token = jwtService.gerarToken(usuario);
             char[] tokenChars = token.toCharArray();
-            tokenChars[10] = 'X'; // Alterar um caractere aleatório
+            tokenChars[10] = 'X';
             String modifiedToken = new String(tokenChars);
 
             assertFalse(jwtService.isTokenValido(modifiedToken));
@@ -437,7 +437,7 @@ class JwtServiceSecurityTest {
             long fim = System.currentTimeMillis();
 
             assertNotNull(token);
-            assertTrue((fim - inicio) < 1000); // Menos de 1 segundo
+            assertTrue((fim - inicio) < 1000);
         }
 
         @Test
@@ -450,7 +450,7 @@ class JwtServiceSecurityTest {
             long fim = System.currentTimeMillis();
 
             assertTrue(isValido);
-            assertTrue((fim - inicio) < 500); // Menos de 500ms
+            assertTrue((fim - inicio) < 500);
         }
 
         @Test
@@ -463,7 +463,7 @@ class JwtServiceSecurityTest {
             long fim = System.currentTimeMillis();
 
             assertEquals("joao.silva", login);
-            assertTrue((fim - inicio) < 500); // Menos de 500ms
+            assertTrue((fim - inicio) < 500);
         }
     }
 
@@ -512,4 +512,3 @@ class JwtServiceSecurityTest {
         }
     }
 }
-//

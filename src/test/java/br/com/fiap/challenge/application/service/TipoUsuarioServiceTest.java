@@ -195,7 +195,7 @@ class TipoUsuarioServiceTest {
 
             when(tipoUsuarioRepository.findById(1L)).thenReturn(Optional.of(tipoUsuario));
             when(tipoUsuarioRepository.findByDescricaoIgnoreCase("Cliente VIP"))
-                .thenReturn(Optional.empty()); // Descrição não existe
+                .thenReturn(Optional.empty());
             when(tipoUsuarioRepository.save(any(TipoUsuario.class))).thenReturn(tipoUsuario);
             when(tipoUsuarioMapper.toResponseDTO(tipoUsuario)).thenReturn(tipoUsuarioResponse);
 

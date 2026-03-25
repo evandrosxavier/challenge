@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"itensCardapio", "endereco"})
+@ToString(exclude = {"itensCardapio", "enderecos"})
 
 @Entity
 @Table(name = "tb_restaurantes")
